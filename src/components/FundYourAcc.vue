@@ -319,6 +319,7 @@
     font-family: 'Open Sans', sans-serif !important;
     line-height: 27px;
     height: 27px;
+    min-width: 40px !important;
   }
 
   .acc-v-btn {
@@ -396,7 +397,6 @@
     .v-application .v-tabs .acc-tab {
       font-size: 12px !important;
       margin-right: 20px !important;
-      min-width: 40px !important;
     }
 
     .acc-v-card {
@@ -427,7 +427,6 @@
       width: 16px !important;
       height: 16px !important;
     }
-
   }
 </style>
 
