@@ -227,7 +227,6 @@
     name: 'FundYourAcc',
     data: () => ({
       tab: null,
-      isClose: false,
       valid: false,
       showMenu: false,
       isAccMenu: false,
