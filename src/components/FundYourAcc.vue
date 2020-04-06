@@ -1,231 +1,236 @@
 <template>
-  <div class="fund-your-acc">
-    <v-dialog v-model="dialog" width="790">
-      <template v-slot:activator="{ on }">
-        <v-btn color="primary" class="mt-10 mx-auto" dark v-on="on" style="display: block;">Open Dialog</v-btn>
-      </template>
-      <v-card class="acc-v-card">
-        <v-container class="py-0">
-          <v-row justify="space-between">
-            <v-col cols="auto pa-0">
-              <v-tabs v-model="tab" color="dark" class="acc-tabs">
-                <v-tab v-for="(tab, i) in tabs"
-                       :class="[{'mr-10': i !== tabs.length-1 }, 'title pa-0 acc-tab']"
-                       :key="i" 
-                       style="text-transform: none;">{{tab}}</v-tab>
-              </v-tabs>
-            </v-col>
+  <v-dialog v-model="dialog" width="790" style="box-shadow: none !important;">
+    <v-card class="acc-v-card">
+      <v-btn icon 
+            color="label"
+            class="acc-dialog-close"
+            @click="changeState">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <v-container class="py-0">
+        <v-row justify="space-between">
+          <v-col cols="auto pa-0">
+            <v-tabs v-model="tab" color="dark" class="acc-tabs">
+              <v-tab v-for="(tab, i) in tabs"
+                      :class="[{'mr-10': i !== tabs.length-1 }, 'title pa-0 acc-tab']"
+                      :key="i" 
+                      style="text-transform: none;">{{tab}}</v-tab>
+            </v-tabs>
+          </v-col>
 
-            <v-col cols="auto pa-0">
-              <v-btn icon 
-                     color="label"
-                     class="acc-dialog-close"
-                     @click="dialog = false">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
+         
+        </v-row>
 
-          <v-row class="mt-10 justify-center">
-            <v-form v-model="valid" class="acc-form">
-              <v-tabs-items v-model="tab">
-                <v-tab-item transition="fade-transition" 
-                            reverse-transition="fade-transition">
-                  
-                  <v-select :items="items" 
-                            flat
-                            height="50"
-                            class="mb-5 acc-v-input"
-                            append-icon="mdi-chevron-down"
-                            background-color="border" 
-                            label="Choose exchange" 
-                            color="label"
-                            hide-details="true"
-                            solo>
-                    <template v-slot:append>
-                      <v-icon color="label">mdi-chevron-down</v-icon>
-                    </template>
-                  </v-select>
+        <v-row class="mt-10 justify-center">
+          <v-form v-model="valid" class="acc-form">
+            <v-tabs-items v-model="tab">
+              <v-tab-item transition="fade-transition" 
+                          reverse-transition="fade-transition">
+                
+                <v-select :items="items" 
+                          flat
+                          height="50"
+                          class="mb-5 acc-v-input"
+                          append-icon="mdi-chevron-down"
+                          background-color="border" 
+                          label="Choose exchange" 
+                          color="label"
+                          hide-details="true"
+                          solo>
+                  <template v-slot:append>
+                    <v-icon color="label">mdi-chevron-down</v-icon>
+                  </template>
+                </v-select>
 
-                  <v-select :items="items" 
-                            flat
-                            height="50"
-                            class="acc-v-input"
-                            append-icon="mdi-chevron-down"
-                            background-color="border" 
-                            label="Choose currency" 
-                            color="label"
-                            hide-details="true"
-                            solo>
-                    <template v-slot:append>
-                      <v-icon color="label">mdi-chevron-down</v-icon>
-                    </template>
-                  </v-select>
+                <v-select :items="items" 
+                          flat
+                          height="50"
+                          class="acc-v-input"
+                          append-icon="mdi-chevron-down"
+                          background-color="border" 
+                          label="Choose currency" 
+                          color="label"
+                          hide-details="true"
+                          solo>
+                  <template v-slot:append>
+                    <v-icon color="label">mdi-chevron-down</v-icon>
+                  </template>
+                </v-select>
 
-                  <div class="acc-qr">
-                    <img :src="require(`./../assets/qr.png`)" alt="">
-                  </div>
+                <div class="acc-qr">
+                  <img :src="require(`./../assets/qr.png`)" alt="">
+                </div>
 
-                  <v-card-text class="acc-card-text">FGBfvcnkfdnvkk74365832ybvcvdfvfvb</v-card-text>
+                <v-card-text class="acc-card-text">FGBfvcnkfdnvkk74365832ybvcvdfvfvb</v-card-text>
 
-                  <v-btn color="primary" 
-                         block 
-                         height="50" 
-                         class="acc-v-btn"
-                         style="text-transform: none;">
-                         Copy
-                  </v-btn>
-
-                </v-tab-item>
-
-                <v-tab-item transition="fade-transition" 
-                            reverse-transition="fade-transition">
-                  <v-select :items="items" 
-                            flat
-                            height="50"
-                            class="mb-5 acc-v-input"
-                            append-icon="mdi-chevron-down"
-                            background-color="border" 
-                            label="Choose exchange" 
-                            color="label"
-                            hide-details="true"
-                            solo>
-                    <template v-slot:append>
-                      <v-icon color="label">mdi-chevron-down</v-icon>
-                    </template>
-                  </v-select>
-
-                  <v-select :items="items" 
-                            flat
-                            height="50"
-                            class="mb-5 acc-v-input"
-                            append-icon="mdi-chevron-down"
-                            background-color="border" 
-                            label="Choose currency" 
-                            color="label"
-                            hide-details="true"
-                            solo>
-                  
-                    <template v-slot:append>
-                      <v-icon color="label">mdi-chevron-down</v-icon>
-                    </template>
-                  </v-select>  
-
-                  <v-select :items="items" 
-                            flat
-                            height="50"
-                            class="mb-5 acc-v-input"
-                            append-icon="mdi-chevron-down"
-                            background-color="border" 
-                            label="Withdraw amount" 
-                            color="label"
-                            hide-details="true"
-                            solo>
-                  
-                    <template v-slot:append>
-                      <div class="text-label once">
-                        <span>Max</span>
-                      </div>
-                    </template>
-                  </v-select>  
-
-                  <v-btn color="primary" 
+                <v-btn color="primary" 
                         block 
                         height="50" 
                         class="acc-v-btn"
                         style="text-transform: none;">
-                        Withdraw
-                  </v-btn>
+                        Copy
+                </v-btn>
 
-                </v-tab-item>
-                <v-tab-item transition="fade-transition" 
-                            reverse-transition="fade-transition">
-                  
-                  <div>
-                    <span class="acc-label">From</span>
-                    <v-select :items="items" 
-                              flat
-                              height="50"
-                              class="mb-5 acc-v-input"
-                              append-icon="mdi-chevron-down"
-                              background-color="border" 
-                              label="Choose exchange" 
-                              color="label"
-                              hide-details="true"
-                              solo>
-                      <template v-slot:append>
-                        <v-icon color="label">mdi-chevron-down</v-icon>
-                      </template>
-                    </v-select>
-                  </div>
+              </v-tab-item>
 
-                  <div>
-                    <span class="acc-label">To</span>
-                    <v-select v-for="item in ['to1','to2']"
-                              :key="item"
-                              :items="items" 
-                              flat
-                              height="50"
-                              class="mb-5 acc-v-input"
-                              append-icon="mdi-chevron-down"
-                              background-color="border" 
-                              label="Choose exchange" 
-                              color="label"
-                              hide-details="true"
-                              solo>
-                      <template v-slot:append>
-                        <v-icon color="label">mdi-chevron-down</v-icon>
-                      </template>
-                    </v-select>
+              <v-tab-item transition="fade-transition" 
+                          reverse-transition="fade-transition">
+                <v-select :items="items" 
+                          flat
+                          height="50"
+                          class="mb-5 acc-v-input"
+                          append-icon="mdi-chevron-down"
+                          background-color="border" 
+                          label="Choose exchange" 
+                          color="label"
+                          hide-details="true"
+                          solo>
+                  <template v-slot:append>
+                    <v-icon color="label">mdi-chevron-down</v-icon>
+                  </template>
+                </v-select>
 
-                    <div class="acc-text-field-menu">
-                     
-                      <v-text-field class="acc-v-textfield" 
-                                  flat 
-                                  single-line 
-                                  solo
-                                  outlined
-                                  background-color="border" 
-                                  hide-details="true"
-                                  @click="isAccMenu = !isAccMenu">
-                      </v-text-field> 
+                <v-select :items="items" 
+                          flat
+                          height="50"
+                          class="mb-5 acc-v-input"
+                          append-icon="mdi-chevron-down"
+                          background-color="border" 
+                          label="Choose currency" 
+                          color="label"
+                          hide-details="true"
+                          solo>
+                
+                  <template v-slot:append>
+                    <v-icon color="label">mdi-chevron-down</v-icon>
+                  </template>
+                </v-select>  
 
-                      <SlideToggle>
-                        <div v-if="isAccMenu" class="acc-wrap">
-                          <v-card class="acc-text-field-card">
-                            <div class="d-flex" >
-                              <span class="text-label balance">
-                                Balance: <span id="balance">0.04763864</span>
-                              </span>
-                            </div>
-                            <div class="d-flex flex-wrap" style="margin-bottom: -10px;">
-                              <span v-for="(label, i) in textLabels" class="text-label" :key="i">{{label}}</span> 
-                            </div>
-                          </v-card>  
-                        </div>
-                      </SlideToggle>
-                    </div> 
-                                  
-                  </div>
-                </v-tab-item>
+                <v-select :items="items" 
+                          flat
+                          height="50"
+                          class="mb-5 acc-v-input"
+                          append-icon="mdi-chevron-down"
+                          background-color="border" 
+                          label="Withdraw amount" 
+                          color="label"
+                          hide-details="true"
+                          solo>
+                
+                  <template v-slot:append>
+                    <div class="text-label once">
+                      <span>Max</span>
+                    </div>
+                  </template>
+                </v-select>  
 
-              </v-tabs-items>
-            </v-form>
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </div>
+                <v-btn color="primary" 
+                      block 
+                      height="50" 
+                      class="acc-v-btn"
+                      style="text-transform: none;">
+                      Withdraw
+                </v-btn>
+
+              </v-tab-item>
+              <v-tab-item transition="fade-transition" 
+                          reverse-transition="fade-transition">
+                
+                <div>
+                  <span class="acc-label">From</span>
+                  <v-select :items="items" 
+                            flat
+                            height="50"
+                            class="mb-5 acc-v-input"
+                            append-icon="mdi-chevron-down"
+                            background-color="border" 
+                            label="Choose exchange" 
+                            color="label"
+                            hide-details="true"
+                            solo>
+                    <template v-slot:append>
+                      <v-icon color="label">mdi-chevron-down</v-icon>
+                    </template>
+                  </v-select>
+                </div>
+
+                <div>
+                  <span class="acc-label">To</span>
+                  <v-select v-for="item in ['to1','to2']"
+                            :key="item"
+                            :items="items" 
+                            flat
+                            height="50"
+                            class="mb-5 acc-v-input"
+                            append-icon="mdi-chevron-down"
+                            background-color="border" 
+                            label="Choose exchange" 
+                            color="label"
+                            hide-details="true"
+                            solo>
+                    <template v-slot:append>
+                      <v-icon color="label">mdi-chevron-down</v-icon>
+                    </template>
+                  </v-select>
+
+                  <div class="acc-text-field-menu">
+                    
+                    <v-text-field class="acc-v-textfield" 
+                                flat 
+                                single-line 
+                                solo
+                                outlined
+                                background-color="border" 
+                                hide-details="true"
+                                @click="isAccMenu = !isAccMenu">
+                    </v-text-field> 
+
+                    <SlideToggle>
+                      <div v-if="isAccMenu" class="acc-wrap">
+                        <v-card class="acc-text-field-card">
+                          <div class="d-flex" >
+                            <span class="text-label balance">
+                              Balance: <span id="balance">0.04763864</span>
+                            </span>
+                          </div>
+                          <div class="d-flex flex-wrap" style="margin-bottom: -10px;">
+                            <span v-for="(label, i) in textLabels" class="text-label" :key="i">{{label}}</span> 
+                          </div>
+                        </v-card>  
+                      </div>
+                    </SlideToggle>
+                  </div> 
+                                
+                </div>
+              </v-tab-item>
+
+            </v-tabs-items>
+          </v-form>
+        </v-row>
+      </v-container>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
   import SlideToggle from './slideToggle'
 
+  
   export default {
+    model: {
+      prop: 'activator',
+      event: 'changestate',
+    },
+    props: {
+      activator: {
+        type: Boolean,
+        default: false
+      }
+    },
     name: 'FundYourAcc',
     data: () => ({
-      dialog: false,
       tab: null,
+      isClose: false,
       valid: false,
       showMenu: false,
       isAccMenu: false,
@@ -233,8 +238,20 @@
       items: ['1', '2', '3', '4'],
       textLabels: ['10%', '20%', '50%', '100%', 'Split']
     }),
+    
     components: {
       SlideToggle
+    },
+
+    computed: {
+      dialog() {
+        return this.activator
+      }
+    },
+    methods: {
+      changeState(){
+        this.$emit ('changestate', false)
+      }
     }
   }
 </script>
@@ -245,23 +262,21 @@
     height: 4px !important;
   }
 
-  .v-dialog {
-    box-shadow: none !important;
-  }
-
   .acc-v-card {
+    position: relative;
     box-shadow: none !important;
-    padding: 32px 28px 70px 40px;  
+    padding: 32px 40px 70px 40px;  
   }
 
   .acc-form {
-    margin-left: -12px;
     max-width: 380px; 
     width: 100%;
   }
 
   .acc-dialog-close {
-    margin-top: -13px;
+    position: absolute !important;
+    top: 22px;
+    right: 22px;
     width: 33px !important;
     height: 33px !important;
   }
