@@ -1,11 +1,16 @@
 <script>
 export default {
+  
   name: 'slideToggle',
   functional: true,
   render(createElement, context) {
     const data = {
       props: {
         name: 'expand',
+        delay: {
+          type: Number,
+          default: 400
+        }
       },
       on: {
         afterEnter(element) {
@@ -13,6 +18,7 @@ export default {
           element.style.height = 'auto';
         },
         enter(element) {
+          element.style.transition = `height ${context.props.delay}ms`
           const { width } = getComputedStyle(element);
           /* eslint-disable no-param-reassign */
           element.style.width = width;
@@ -26,6 +32,8 @@ export default {
           element.style.position = null;
           element.style.visibility = null;
           element.style.height = 0;
+          
+
           /* eslint-enable */
           // Force repaint to make sure the
           // animation is triggered correctly.
@@ -37,8 +45,10 @@ export default {
           });
         },
         leave(element) {
+          element.style.transition = `height ${context.props.delay}ms`
           const { height } = getComputedStyle(element);
           // eslint-disable-next-line no-param-reassign
+          
           element.style.height = height;
           // Force repaint to make sure the
           // animation is triggered correctly.
@@ -51,6 +61,7 @@ export default {
         },
       },
     };
+    
     return createElement('transition', data, context.children);
   },
 };
@@ -68,7 +79,7 @@ export default {
 <style>
   .expand-enter-active,
   .expand-leave-active {
-    transition: height .3s ease-in-out;
+    /* transition: height .3s ease-in-out; */
     overflow: hidden;
   }
 

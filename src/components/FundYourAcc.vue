@@ -2,9 +2,9 @@
   <v-dialog v-model="dialog" width="790" style="box-shadow: none !important;">
     <v-card class="acc-v-card">
       <v-btn icon 
-            color="label"
-            class="acc-dialog-close"
-            @click="changeState">
+             color="label"
+             class="acc-dialog-close"
+             @click="changeState">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-container class="py-0">
@@ -17,10 +17,7 @@
                       style="text-transform: none;">{{tab}}</v-tab>
             </v-tabs>
           </v-col>
-
-         
         </v-row>
-
         <v-row class="mt-10 justify-center">
           <v-form v-model="valid" class="acc-form">
             <v-tabs-items v-model="tab">
@@ -185,7 +182,7 @@
                                 @click="isAccMenu = !isAccMenu">
                     </v-text-field> 
 
-                    <SlideToggle>
+                    <SlideToggle :delay="200">
                       <div v-if="isAccMenu" class="acc-wrap">
                         <v-card class="acc-text-field-card">
                           <div class="d-flex" >
